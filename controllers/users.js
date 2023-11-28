@@ -22,12 +22,25 @@ module.exports = {
         }
         
     },
+    show: async (req, res) => {
+        try{
+            const users = await User.findById(req.params.id)
+                res.status(200).json({
+                    status: true,
+                    data: users,
+                    method: req.method,
+                    url: req.url
+                })
+        } catch (error) {
+            res.status(400).json({sucess: false})
+        }
+    },
     store: async (req, res) => {
         try {
             const user = await User.create(req.body)
             res.status(200).json({
                 status: true,
-                data: users,
+                data: user,
                 method: req.method,
                 url: req.url,
                 message: "Data berhasil ditambahkan"
